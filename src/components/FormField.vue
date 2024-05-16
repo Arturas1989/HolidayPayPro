@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, type PropType } from 'vue';
 import ErrorMessage from './ErrorMessage.vue';
 
   const props = defineProps({
-    for: String
+    for: String,
+    errors: Array as PropType<string[] | undefined>
   })
   const inputRef = ref(null);
   defineExpose({
     inputRef
   })
+
 </script>
 
 <template>
   <div class="input-group">
-    <ErrorMessage></ErrorMessage>
+    <ErrorMessage>{{ errors?.join('; ') }}</ErrorMessage>
     <label :for="props.for"><slot></slot></label>
     <input ref="inputRef" type="text" :id="props.for" required>
   </div>
