@@ -14,7 +14,7 @@
   span{
     min-height: 20px;
     color: red;
-    font-size: 10px;
+    font-size: 12px;
     display: flex;
     align-items: flex-end;
   }
