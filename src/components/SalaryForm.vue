@@ -13,15 +13,15 @@ const formFields = {
 
 const validationOptions: ValidationOptions = {
   year: {
-    types: ['integer'],
-    rules: [['between', [0, 100]]]
+    types: ['positive_integer'],
+    rules: [['greater_than', [0]]]
   },
   salary: {
-    types: ['numeric'],
+    types: ['positive_integer'],
     rules: [['greater_than', [0]]]
   },
   days: {
-    types: ['integer'],
+    types: ['positive_integer'],
     rules: [['greater_than', [0]]]
   }
 }
