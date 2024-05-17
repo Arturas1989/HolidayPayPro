@@ -7,7 +7,7 @@ type RulesCheck = {
 
 type Rule = ['greater_than' | 'less_than' | 'equal_to' | 'between', number[]]
 
-type TypesCheckKey = 'number' | 'numeric' | 'array' | 'object' | 'string' | 'boolean';
+type TypesCheckKey = 'number' | 'numeric' | 'array' | 'object' | 'string' | 'boolean' | 'integer';
 type TypesCheck = {
   [key in TypesCheckKey]: (val: unknown) => boolean
 }
@@ -36,6 +36,7 @@ export class Validator {
     this.fields = fields
     this.errors = {}
     this.typesCheck = {
+      integer: (val: unknown) => typeof val === 'string' && !val.match(/[^0-9]/g),
       number: (val: unknown) => typeof val === 'number',
       numeric: (val: unknown) => typeof val === 'string' && !isNaN(parseInt(val)),
       string: (val: unknown) => typeof val === 'string',
