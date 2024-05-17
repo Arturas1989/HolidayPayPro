@@ -1,4 +1,4 @@
-import { Validator, type Fields, type FormOption } from "@/services/Validator";
+import { Validator, type Fields, type ValidationOptions } from "@/services/Validator";
 import type { FormFields } from "@/types/FormFields";
 
 export const getFormFields = (formFields: FormFields) => {
@@ -10,8 +10,8 @@ export const getFormFields = (formFields: FormFields) => {
   return data;
 }
 
-export const getErrors = (formFields: Fields, formOption: FormOption) => {
-  const validator = new Validator(formOption, formFields);
+export const getErrors = (formFields: Fields, validationOptions: ValidationOptions) => {
+  const validator = new Validator(validationOptions, formFields);
   validator.validate();
   return validator.errors;
 }

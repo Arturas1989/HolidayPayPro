@@ -23,37 +23,16 @@ export type ValidationOptions = {
   }
 }
 
-type AllValidationOptions = {
-  [key in FormOption]: ValidationOptions
-}
-
 export type Fields = { [key: string]: unknown }
 
 export class Validator {
-  private allValidationOptions: AllValidationOptions
   private validationOptions: ValidationOptions
   private fields: Fields
   private typesCheck: TypesCheck
   private ruleCheck: RulesCheck
   public errors: { [key: string]: string[] }
-  constructor(form: FormOption, fields: Fields) {
-    this.allValidationOptions = {
-      SalaryForm: {
-        year: {
-          types: ['numeric'],
-          rules: [['greater_than', [0]]]
-        },
-        salary: {
-          types: ['numeric'],
-          rules: [['greater_than', [0]]]
-        },
-        days: {
-          types: ['numeric'],
-          rules: [['greater_than', [0]]]
-        }
-      }
-    }
-    this.validationOptions = this.allValidationOptions[form]
+  constructor(validationOptions: ValidationOptions, fields: Fields) {
+    this.validationOptions = validationOptions
     this.fields = fields
     this.errors = {}
     this.typesCheck = {
