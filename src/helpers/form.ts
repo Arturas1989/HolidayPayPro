@@ -10,6 +10,13 @@ import type { DataRef, refVal } from '@/types/DataRef'
 import type { Ref } from 'vue'
 
 
+export const isValid = (formErrors: FormErrors) => {
+  for(const formType in formErrors){
+    const hasErrors = Object.values(formErrors[formType as keyof FormErrors].value!).length;
+    if(hasErrors) return false;
+  }
+  return true;
+}
 
 export const getVal = (val: refVal | refVal[] | DataRef | string) => {
   if(Array.isArray(val)) return val[0].inputRef ? val[0].inputRef.value : ''
