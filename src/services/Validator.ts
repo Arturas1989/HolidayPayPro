@@ -16,11 +16,13 @@ type Type = keyof TypesCheck
 
 export type FormOption = 'SalaryForm'
 
+export type ValidationOption = {
+  types: Type[]
+  rules: Rule[]
+}
+
 export type ValidationOptions = {
-  [key: string]: {
-    types: Type[]
-    rules: Rule[]
-  }
+  [key: string]: ValidationOption
 }
 
 export type Fields = { [key: string]: unknown }
@@ -36,7 +38,7 @@ export class Validator {
     this.fields = fields
     this.errors = {}
     this.typesCheck = {
-      positive_integer: (val: unknown) => typeof val === 'string' && !val.match(/[^0-9]/g) && val !== '0',
+      positive_integer: (val: unknown) => typeof val === 'number' || (typeof val === 'string' && !val.match(/[^0-9]/g) && val !== '0'),
       number: (val: unknown) => typeof val === 'number',
       numeric: (val: unknown) => typeof val === 'string' && !isNaN(parseInt(val)),
       string: (val: unknown) => typeof val === 'string',
