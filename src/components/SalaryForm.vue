@@ -1,75 +1,162 @@
 <script setup lang="ts">
-import FormField from './FormField.vue'
-import { getErrors, getFormFields } from '@/helpers/helpers'
-import { ref } from 'vue'
 import type { DataRef } from '@/types/DataRef'
-import type { ValidationOptions } from '@/services/Validator';
+import FormField from './FormField.vue'
+import SubmitButton from './SubmitButton.vue'
+import { ref } from 'vue'
+import { calcInfo, getVal, updateFormFields, validateForm } from '@/helpers/form'
+import type { FormFields, GeneralFields } from '@/types/FormFields'
 
-const formFields = {
-  year: ref<DataRef>(null),
-  salary: ref<DataRef>(null),
-  days: ref<DataRef>(null)
+const defaultData = {
+  defaultYear: new Date().getFullYear(),
+  defaultSalary: 1850,
+  defaultDays: 10
 }
 
-const validationOptions: ValidationOptions = {
-  year: {
-    types: ['positive_integer'],
-    rules: [['greater_than', [0]]]
-  },
-  salary: {
-    types: ['positive_integer'],
-    rules: [['greater_than', [0]]]
-  },
-  days: {
-    types: ['positive_integer'],
-    rules: [['greater_than', [0]]]
-  }
+const { defaultYear, defaultSalary, defaultDays } = defaultData
+// month form
+let formFields: GeneralFields = {
+  year: ref<DataRef>(defaultYear),
+  salary: ref<DataRef>(defaultSalary),
+  days: ref<DataRef>(defaultDays)
 }
 
-const errors = ref<{ [key: string]: string[] } | null>(null)
+const info = ref<FormFields>(calcInfo(defaultYear, defaultSalary));
+
+const updateForm = (type: string, input: HTMLInputElement) => {
+  updateFormFields(type, input, info, formFields)
+}
+const formErrors = {
+  general: ref<{ [key: string]: string[] } | null>(null),
+  month: ref<{ [key: string]: string[] } | null>(null),
+  salary: ref<{ [key: string]: string[] } | null>(null)
+}
 
 const handleSubmit = (e: Event) => {
   e.preventDefault()
-  const { year, salary, days } = getFormFields(formFields)
-  errors.value = getErrors({ year, salary, days }, validationOptions)
+  validateForm(info, formFields, formErrors);
 }
 </script>
 
 <template>
   <form @submit="handleSubmit">
-    <FormField :ref="formFields.year" :errors="errors?.year" for="year">Enter a year</FormField>
-    <FormField :ref="formFields.salary" :errors="errors?.salary" for="salary"
-      >Enter a salary</FormField
-    >
-    <FormField :ref="formFields.days" :errors="errors?.days" for="days">Enter days</FormField>
-    <button>Submit</button>
+    <div class="salary-fields">
+      <div class="salary-container">
+        <FormField
+          :updateForm="updateForm"
+          :inputVal="getVal(formFields?.year.value)"
+          :ref="formFields?.year"
+          :errors="formErrors.general.value?.year"
+          for="year"
+          >Enter a year</FormField
+        >
+        <FormField
+          :updateForm="updateForm"
+          :inputVal="getVal(formFields?.salary.value)"
+          :ref="formFields?.salary"
+          :errors="formErrors.general.value?.salary"
+          for="salary"
+          >Enter a salary</FormField
+        >
+        <FormField
+          :updateForm="updateForm"
+          :inputVal="getVal(formFields?.days.value)"
+          :ref="formFields?.days"
+          :errors="formErrors.general.value?.days"
+          for="days"
+          >Enter days</FormField
+        >
+        <SubmitButton />
+      </div>
+    </div>
+    <div class="month-fields">
+      <table>
+        <tr>
+          <th>Month</th>
+          <th>Work days</th>
+          <th>Salary</th>
+        </tr>
+        <tbody>
+          <tr class="container" v-for="(days, month) in info.workDays" :key="month">
+            <td>{{ month }}</td>
+            <td>
+              <FormField
+                :updateForm="updateForm"
+                :errors="formErrors.month.value ? formErrors.month.value[month] : []"
+                :for="month + ';days'"
+                :inputVal="info.workDays[month]"
+              ></FormField>
+            </td>
+            <td>
+              <FormField
+                :updateForm="updateForm"
+                :key="info.salaryFields[month]"
+                :errors="formErrors.salary.value ? formErrors.salary.value[month] : []"
+                :for="month + ';salary'"
+                :inputVal="info.salaryFields[month]"
+              ></FormField>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </form>
 </template>
 
 <style>
-form {
-  display: flex;
-  flex-direction: column;
-  min-width: 350px;
-}
-button {
-  margin-top: 20px;
-  align-self: flex-start;
-  background-color: rgb(237, 167, 29);
-  color: white;
-  border: none;
-  padding: 7px 15px;
-  border-radius: 15px;
-  cursor: pointer;
+.salary-fields,
+.month-fields {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 5px;
 }
 
-button:focus {
+.salary-fields {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  border-radius: 10px;
   border: 1px solid black;
 }
 
-@media only screen and (max-width: 400px) {
-  form {
-    min-width: 300px;
-  }
+.salary-container {
+  padding: 5px;
+}
+
+.month-fields {
+  width: 90%;
+  border: 1px solid black;
+}
+
+table {
+  width: 100%;
+}
+
+tr,
+td,
+th {
+  outline: 1px solid black;
+  padding: 5px;
+}
+
+tr > td {
+  width: 40%;
+}
+tr > td:first-child {
+  width: fit-content;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+}
+
+.container > td:first-child {
+  vertical-align: bottom;
+}
+
+td {
+  width: fit-content;
 }
 </style>
