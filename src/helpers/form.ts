@@ -12,7 +12,6 @@ import type { Ref } from 'vue'
 
 
 export const getVal = (val: refVal | refVal[] | DataRef | string) => {
-  // console.log(val)
   if(Array.isArray(val)) return val[0].inputRef ? val[0].inputRef.value : ''
   if(typeof val === 'object' && val?.inputRef) return val.inputRef.value
   return val as string;
@@ -20,9 +19,7 @@ export const getVal = (val: refVal | refVal[] | DataRef | string) => {
 
 export const getFormFields = (formFields: GeneralFields) => {
   const data: Fields = {}
-  console.log(Object.keys(formFields), Object.values(formFields))
   for (const key in formFields) {
-    console.log(formFields[key])
     data[key] = typeof formFields[key] !== 'object' ? formFields[key] : getVal(formFields[key].value)
   }
   return data
@@ -72,7 +69,6 @@ export const updateFormFields = (type: string, input: HTMLInputElement, info: Re
       updateInfo.salaryFields = salaryFields;
     } else {
       const monthFields = {...updateInfo.monthFields};
-      console.log(monthFields)
       monthFields[types[0]] = input.value;
       updateInfo.monthFields = monthFields;
     }
