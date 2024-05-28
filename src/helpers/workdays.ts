@@ -25,7 +25,6 @@ export function getAllWorkDays(year: string | undefined) {
 
 
     setEaster(+year, defaultHollidays);
-    console.log(year, defaultHollidays)
     for (let month = 1; month <= 12; month++) {
       allWorkDays[`${year}/${month}`] = getWorkDays(year, month, defaultHollidays)
     }
