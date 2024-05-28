@@ -1,3 +1,5 @@
-export type DataRef = HTMLInputElement & {
-  inputRef: HTMLInputElement|null
-} | null
+export type refVal = {
+  inputRef: HTMLInputElement | null
+}
+
+export type DataRef = HTMLInputElement & refVal | null | number | string

@@ -13,10 +13,12 @@
 <style>
   span{
     min-height: 20px;
+    width: fit-content;
     color: red;
     font-size: 12px;
     display: flex;
     align-items: flex-end;
+    margin-bottom: 5px;
   }
   p{
     vertical-align: bottom;
