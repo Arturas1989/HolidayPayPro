@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <button>Submit</button>
+  <button><slot></slot></button>
 </template>
 
 <style>
