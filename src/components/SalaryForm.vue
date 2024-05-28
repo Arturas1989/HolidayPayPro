@@ -11,7 +11,7 @@ const emit = defineEmits(['update:modelValue']);
 
 const defaultData = {
   defaultYear: new Date().getFullYear(),
-  defaultSalary: 1850,
+  defaultSalary: 2000,
   defaultDays: 10
 }
 
