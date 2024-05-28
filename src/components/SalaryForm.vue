@@ -3,8 +3,11 @@ import type { DataRef } from '@/types/DataRef'
 import FormField from './FormField.vue'
 import SubmitButton from './SubmitButton.vue'
 import { ref } from 'vue'
-import { calcInfo, getVal, updateFormFields, validateForm } from '@/helpers/form'
+import { calcInfo, getVal, isValid, updateFormFields, validateForm } from '@/helpers/form'
+import { bestMonths } from '@/helpers/calc'
 import type { FormFields, GeneralFields } from '@/types/FormFields'
+
+const emit = defineEmits(['update:modelValue']);
 
 const defaultData = {
   defaultYear: new Date().getFullYear(),
@@ -34,6 +37,10 @@ const formErrors = {
 const handleSubmit = (e: Event) => {
   e.preventDefault()
   validateForm(info, formFields, formErrors);
+  if(isValid(formErrors)){
+    const result = bestMonths(info.value.monthFields, info.value.salaryFields, +getVal(formFields.days.value));
+    emit('update:modelValue', result)
+  }
 }
 </script>
 
@@ -65,7 +72,7 @@ const handleSubmit = (e: Event) => {
           for="days"
           >Enter days</FormField
         >
-        <SubmitButton />
+        <SubmitButton>Submit</SubmitButton>
       </div>
     </div>
     <div class="month-fields">
@@ -104,8 +111,12 @@ const handleSubmit = (e: Event) => {
 
 <style>
 .salary-fields,
-.month-fields {
+.month-fields, section > .container > table {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 5px;
+}
+
+section > .container > table {
+  border: 1px solid black
 }
 
 .salary-fields {
