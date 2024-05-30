@@ -16,6 +16,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vueuse/core": "^10.10.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },

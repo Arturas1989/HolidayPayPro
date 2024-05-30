@@ -46,7 +46,7 @@ const handleSubmit = (e: Event) => {
 
 <template>
   <form @submit="handleSubmit">
-    <div class="salary-fields">
+    <div class="salary-fields card">
       <div class="salary-container">
         <FormField
           :updateForm="updateForm"
@@ -75,7 +75,7 @@ const handleSubmit = (e: Event) => {
         <SubmitButton>Submit</SubmitButton>
       </div>
     </div>
-    <div class="month-fields">
+    <div class="month-fields card">
       <table>
         <tr>
           <th>Month</th>

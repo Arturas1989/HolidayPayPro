@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import ToggleIcon from './components/ToggleIcon.vue';
 </script>
 
 <template>
   <header>
-
     <div class="wrapper">
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/hollidays">Hollidays</RouterLink>
+        <ToggleIcon />
       </nav>
     </div>
   </header>
-
   <RouterView />
 </template>
 

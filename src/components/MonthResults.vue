@@ -11,7 +11,7 @@
 </script>
 
 <template>
-  <div class="container">
+  <div class="container card">
     <table>
       <thead>
         <tr>
@@ -31,6 +31,10 @@
 </template>
 
 <style>
+  .container.card > button{
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
   .positive{
     background-color: lightgreen;
   }
