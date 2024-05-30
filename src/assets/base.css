@@ -36,18 +36,29 @@
   --section-gap: 160px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+[color-scheme='dark'] {
+  background-color: rgb(30, 30, 30);
+  color: white;
+}
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
+[color-scheme='dark'] > #app >header{
+  background-color: rgb(50, 50, 50);
+}
+[color-scheme='dark'] > #app >header a {
+  color: white;
+}
+[color-scheme='dark'] > #app >header .router-link-exact-active {
+  background-color: rgb(84, 65, 65);
+}
 
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
+[color-scheme='dark'] .card {
+  background-color: rgb(50, 50, 50);
+  box-shadow: rgba(255,255,255,0.5) 0px 5px 15px 5px;
+  border-color: white;
+}
+
+[color-scheme='dark'] .container.card td {
+  color: black;
 }
 
 *,
