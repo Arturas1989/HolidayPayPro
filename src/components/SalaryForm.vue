@@ -136,7 +136,7 @@ section > .container > table {
   border: 1px solid black;
 }
 
-table {
+table, tbody {
   width: 100%;
 }
 
@@ -165,9 +165,5 @@ form {
 
 .container > td:first-child {
   vertical-align: bottom;
-}
-
-td {
-  width: fit-content;
 }
 </style>

@@ -49,7 +49,7 @@ import type { DataRef } from '@/types/DataRef';
     background: rgb(230, 242, 247);
     border: 0.5px solid lightblue;
     padding: 5px 7px;
-    width: 50%;
+    max-width: 50%;
   }
   input:focus{
     outline: none;
@@ -64,5 +64,9 @@ import type { DataRef } from '@/types/DataRef';
   }
   table input{
     width: 90%;
+    max-width: none;
+  }
+  table .label-group{
+    justify-content: center;
   }
 </style>
