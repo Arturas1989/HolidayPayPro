@@ -20,6 +20,13 @@ import type { DataRef } from '@/types/DataRef';
   const handleBlur = () => {
     props.updateForm(props.for, inputRef.value!)
   }
+
+  const handleKeydown = (e: KeyboardEvent) => {
+    if(e.key === 'Enter'){
+      props.updateForm(props.for, inputRef.value!)
+      displayRef.value = (inputRef.value! as HTMLInputElement).value
+    }
+  }
 </script>
 
 <template>
@@ -27,7 +34,7 @@ import type { DataRef } from '@/types/DataRef';
     <ErrorMessage>{{ errors?.join('; ') }}</ErrorMessage>
     <div class="label-group">
       <label :for="props.for"><slot></slot></label>
-      <input :value="displayRef" @change="handleChange" @blur="handleBlur" ref="inputRef" type="text" :id="props.for" required>
+      <input :value="displayRef" @keydown="handleKeydown" @change="handleChange" @blur="handleBlur" ref="inputRef" type="text" :id="props.for" required>
     </div>
   </div>
 </template>
