@@ -1,9 +1,13 @@
+<script setup lang="ts">
+  import HollidayTable from '@/components/Hollidays/HollidayTable.vue'
+</script>
+
 <template>
-  <div class="hollidays">
-    <h1>This is a hollidays page</h1>
-  </div>
+  <main class="hollidays">
+    <section>
+      <HollidayTable />
+    </section>
+  </main>
 </template>
 
-<style>
-
-</style>
+<style></style>
