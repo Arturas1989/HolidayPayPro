@@ -10,7 +10,7 @@
   </span>
 </template>
 
-<style>
+<style scoped>
   span{
     min-height: 20px;
     width: fit-content;
