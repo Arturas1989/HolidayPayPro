@@ -1,4 +1,6 @@
-type Hollidays = { [key: string]: { [key: string]: number } }
+import { getData } from "./data"
+
+export type Hollidays = { [key: string]: { [key: string]: string } }
 
 
 
@@ -6,17 +8,7 @@ export type WorkDays = { [key: string]: string }
 
 export function getAllWorkDays(year: string | undefined) {
   const allWorkDays: WorkDays = {}
-  const defaultHollidays: Hollidays = {
-    '1': { '1': 1 },
-    '2': { '16': 1 },
-    '3': { '11': 1 },
-    '5': { '1': 1 },
-    '6': { '24': 1 },
-    '7': { '6': 1 },
-    '8': { '15': 1 },
-    '11': { '1': 1, '2': 1 },
-    '12': { '24': 1, '25': 1, '26': 1 }
-  }
+  const defaultHollidays = getData();
   if (year) {
     const currYear = +year - 1
     for (let month = 10; month <= 12; month++) {
@@ -49,9 +41,9 @@ export function getWorkDays(year: string | undefined, monthNum: number, defaultH
 function setEaster(year: number, defaultHollidays: Hollidays) {
   const { easterMonth, easterDay } = GetEasterDate(year)
   if (easterMonth in defaultHollidays) {
-    defaultHollidays[easterMonth][easterDay] = 1
+    defaultHollidays[easterMonth][easterDay] = 'Easter'
   } else {
-    defaultHollidays[easterMonth] = { [easterDay]: 1 }
+    defaultHollidays[easterMonth] = { [easterDay]: 'Easter' }
   }
 }
 
