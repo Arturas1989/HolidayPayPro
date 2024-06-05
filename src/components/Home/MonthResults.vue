@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import SubmitButton from './SubmitButton.vue'
+  import SubmitButton from './Forms/SubmitButton.vue'
   const props = defineProps(['modelValue']);
   const emit = defineEmits(['update:modelValue']);
 

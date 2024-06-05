@@ -37,3 +37,11 @@ export type FormErrors = {
   month: ErrorsRef,
   salary: ErrorsRef,
 }
+
+export type HollidayFormFields = {
+  month: string
+  day: string
+  description: string
+}
+
+export type HollidayFormType = 'edit' | 'add' | '';

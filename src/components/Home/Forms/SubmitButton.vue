@@ -4,7 +4,7 @@
   <button><slot></slot></button>
 </template>
 
-<style>
+<style scoped>
 button {
   margin-top: 20px;
   align-self: flex-start;

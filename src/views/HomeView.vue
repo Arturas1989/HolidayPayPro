@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import MonthResults from '@/components/MonthResults.vue';
-  import SalaryForm from '@/components/SalaryForm.vue';
+  import MonthResults from '@/components/Home/MonthResults.vue';
+  import SalaryForm from '@/components/Home/Forms/SalaryForm.vue';
   import { computed } from 'vue';
 
   const model = defineModel<[string, number][]>();
@@ -22,6 +22,8 @@ main {
   display: flex;
   width: 100%;
   justify-content: center;
-  
+}
+section{
+  width: fit-content;
 }
 </style>

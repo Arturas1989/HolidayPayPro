@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DataRef } from '@/types/DataRef'
-import FormField from './FormField.vue'
+import FormField from '../../FormField.vue'
 import SubmitButton from './SubmitButton.vue'
 import { ref } from 'vue'
 import { calcInfo, getVal, isValid, updateFormFields, validateForm } from '@/helpers/form'
@@ -45,7 +45,7 @@ const handleSubmit = (e: Event) => {
 </script>
 
 <template>
-  <form @submit="handleSubmit">
+  <form class="salary-form" @submit="handleSubmit">
     <div class="salary-fields card">
       <div class="salary-container">
         <FormField
@@ -154,7 +154,7 @@ tr > td:first-child {
   width: fit-content;
 }
 
-form {
+.salary-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
