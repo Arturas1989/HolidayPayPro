@@ -1,11 +1,12 @@
 type RulesCheck = {
+  no_rule: (val: number, args: number[]) => boolean
   greater_than: (val: number, args: number[]) => boolean
   less_than: (val: number, args: number[]) => boolean
   between: (val: number, args: number[]) => boolean
   equal_to: (val: number, args: number[]) => boolean
 }
 
-type Rule = ['greater_than' | 'less_than' | 'equal_to' | 'between', number[]]
+type Rule = [keyof RulesCheck, number[]]
 
 type TypesCheckKey = 'number' | 'numeric' | 'array' | 'object' | 'string' | 'boolean' | 'positive_integer';
 type TypesCheck = {
@@ -47,6 +48,7 @@ export class Validator {
       object: (val: unknown) => !Array.isArray(val) && typeof val === 'object'
     }
     this.ruleCheck = {
+      no_rule: (val: number, args: number[]) => true,
       greater_than: (val: number, args: number[]) => val > args[0],
       less_than: (val: number, args: number[]) => val < args[0],
       between: (val: number, args: number[]) => val >= args[0] && val <= args[1],
