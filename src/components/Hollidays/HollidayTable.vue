@@ -6,6 +6,7 @@ import HollidayModal from './HollidayModal.vue'
 import { useLocalStorage } from '@vueuse/core';
 import { provide, ref } from 'vue';
 import type { HollidayFormFields, HollidayFormType } from '@/types/FormFields';
+import type { Modal } from '@/types/Modal';
 
 
 const hollidays = useLocalStorage<ConvertedHollidays>('hollidays', {});
@@ -17,7 +18,7 @@ const remove = (key: string) => {
   hollidays.value = newValue;
 }
 
-const modal = defineModel({default: {
+const modal = defineModel<Modal>({default: {
   show: false,
   title: '',
   buttonText: '',

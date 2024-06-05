@@ -8,7 +8,7 @@ type Modal = {
   show: boolean;
   title: string;
   buttonText: string;
-  type: 'edit' | 'add' | '';
+  type: HollidayFormType;
 }
 defineProps<{
   modelValue: Modal
