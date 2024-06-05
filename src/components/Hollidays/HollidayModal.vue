@@ -1,0 +1,147 @@
+<script setup lang="ts">
+import SubmitButton from '../Home/Forms/SubmitButton.vue';
+import HollidayForm from './HollidayForm.vue';
+import { inject } from 'vue';
+import type { HollidayFormFields, HollidayFormType } from '@/types/FormFields';
+
+type Modal = {
+  show: boolean;
+  title: string;
+  buttonText: string;
+  type: 'edit' | 'add' | '';
+}
+defineProps<{
+  modelValue: Modal
+}>();
+const handleEdit = inject<{
+  (val: HollidayFormFields, title: string, buttonText: string, type: HollidayFormType): void
+}>('handleEdit')!;
+
+const emit = defineEmits<{
+  (emit: 'update:modelValue', val: Modal): void
+}>();
+const openModal = () => {
+  handleEdit({month: '', day: '', description: ''}, 'Add the holliday', 'Submit', 'add')
+}
+
+const closeModal = () => {
+  emit('update:modelValue', {show: false, title: '', buttonText: '', type: ''});
+}
+</script>
+
+<template>
+  <div>
+    <SubmitButton @click="openModal">Add the holliday</SubmitButton>
+    <div v-show="modelValue.show" id="myModal" class="modal">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <div class="close-container" @click="closeModal">
+            <span class="close">x</span>
+          </div>
+          <h2>{{ modelValue.title }}</h2>
+        </div>
+        <div class="modal-body">
+          <HollidayForm :buttonText="modelValue.buttonText" :closeModal="closeModal" :type="modelValue.type" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+.modal {
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: fit-content;
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.close-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  border-radius: 50%;
+  background-color: lightgreen;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.close-container:hover{
+  background-color: lightblue;
+}
+.close {
+  
+  color: white;
+  
+  font-size: 28px;
+  line-height: 1;
+  font-weight: bold;
+  transform: translateY(-2px);
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: rgb(109, 109, 236);
+  color: white;
+  position: relative;
+}
+
+.modal-body {
+  padding: 16px;
+}
+</style>
