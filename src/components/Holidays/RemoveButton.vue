@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import ToolTip from '../ToolTip.vue';
+
   
 </script>
 
 <template>
-  <button class="remove">x</button>
+  
+  <button class="remove tooltip">
+    <ToolTip>Remove a holiday</ToolTip>
+    x
+  </button>
 </template>
 
 <style scoped>
