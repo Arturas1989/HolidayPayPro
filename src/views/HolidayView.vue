@@ -10,4 +10,8 @@ import HolidayTable from '@/components/Holidays/HolidayTable.vue'
   </main>
 </template>
 
-<style></style>
+<style>
+.tooltip {
+  position: relative;
+}
+</style>
