@@ -28,20 +28,20 @@ export type FormFields = {
 export type GeneralFields = { [key: string]: Ref<DataRef> }
 
 export type Errors = {
-  [key: string]: string[];
-};
+  [key: string]: string[]
+}
 export type ErrorsRef = Ref<Errors | null>
 
 export type FormErrors = {
-  general: ErrorsRef,
-  month: ErrorsRef,
-  salary: ErrorsRef,
+  general: ErrorsRef
+  month: ErrorsRef
+  salary: ErrorsRef
 }
 
-export type HollidayFormFields = {
+export type HolidayFormFields = {
   month: string
   day: string
   description: string
 }
 
-export type HollidayFormType = 'edit' | 'add' | '';
+export type HolidayFormType = 'edit' | 'add' | ''

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import ToggleIcon from './components/ToggleIcon.vue';
+import ToggleIcon from './components/ToggleIcon.vue'
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import ToggleIcon from './components/ToggleIcon.vue';
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/hollidays">Hollidays</RouterLink>
+        <RouterLink to="/holidays">Holidays</RouterLink>
         <ToggleIcon />
       </nav>
     </div>
@@ -17,7 +17,7 @@ import ToggleIcon from './components/ToggleIcon.vue';
 </template>
 
 <style scoped>
-header{
+header {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -37,13 +37,12 @@ a {
   border-right: 1px solid lightgray;
 }
 
-a:hover{
+a:hover {
   background: lightgray;
   text-decoration: underline;
 }
 
-header a.router-link-exact-active{
+header a.router-link-exact-active {
   background: lightcoral;
 }
-
 </style>

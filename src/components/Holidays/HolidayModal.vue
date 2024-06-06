@@ -1,37 +1,37 @@
 <script setup lang="ts">
-import SubmitButton from '../Home/Forms/SubmitButton.vue';
-import HollidayForm from './HollidayForm.vue';
-import { inject } from 'vue';
-import type { HollidayFormFields, HollidayFormType } from '@/types/FormFields';
+import SubmitButton from '../Home/Forms/SubmitButton.vue'
+import HolidayForm from './HolidayForm.vue'
+import { inject } from 'vue'
+import type { HolidayFormFields, HolidayFormType } from '@/types/FormFields'
 
 type Modal = {
-  show: boolean;
-  title: string;
-  buttonText: string;
-  type: HollidayFormType;
+  show: boolean
+  title: string
+  buttonText: string
+  type: HolidayFormType
 }
 defineProps<{
   modelValue: Modal
-}>();
+}>()
 const handleEdit = inject<{
-  (val: HollidayFormFields, title: string, buttonText: string, type: HollidayFormType): void
-}>('handleEdit')!;
+  (val: HolidayFormFields, title: string, buttonText: string, type: HolidayFormType): void
+}>('handleEdit')!
 
 const emit = defineEmits<{
   (emit: 'update:modelValue', val: Modal): void
-}>();
+}>()
 const openModal = () => {
-  handleEdit({month: '', day: '', description: ''}, 'Add the holliday', 'Submit', 'add')
+  handleEdit({ month: '', day: '', description: '' }, 'Add the holiday', 'Submit', 'add')
 }
 
 const closeModal = () => {
-  emit('update:modelValue', {show: false, title: '', buttonText: '', type: ''});
+  emit('update:modelValue', { show: false, title: '', buttonText: '', type: '' })
 }
 </script>
 
 <template>
   <div>
-    <SubmitButton @click="openModal">Add the holliday</SubmitButton>
+    <SubmitButton @click="openModal">Add the holiday</SubmitButton>
     <div v-show="modelValue.show" id="myModal" class="modal">
       <div class="modal-content card">
         <div class="modal-header">
@@ -41,7 +41,11 @@ const closeModal = () => {
           <h2>{{ modelValue.title }}</h2>
         </div>
         <div class="modal-body">
-          <HollidayForm :buttonText="modelValue.buttonText" :closeModal="closeModal" :type="modelValue.type" />
+          <HolidayForm
+            :buttonText="modelValue.buttonText"
+            :closeModal="closeModal"
+            :type="modelValue.type"
+          />
         </div>
       </div>
     </div>
@@ -101,7 +105,7 @@ const closeModal = () => {
   }
 }
 
-.close-container{
+.close-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,13 +118,12 @@ const closeModal = () => {
   height: 30px;
   cursor: pointer;
 }
-.close-container:hover{
+.close-container:hover {
   background-color: lightblue;
 }
 .close {
-  
   color: white;
-  
+
   font-size: 28px;
   line-height: 1;
   font-weight: bold;

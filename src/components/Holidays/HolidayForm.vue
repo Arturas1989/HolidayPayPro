@@ -4,21 +4,21 @@ import SubmitButton from '../Home/Forms/SubmitButton.vue'
 import { getErrors } from '@/helpers/form'
 import type { ValidationOptions } from '@/services/Validator'
 import { inject, ref, type Ref } from 'vue'
-import type { UpdateHollidayVal } from './HollidayTable.vue'
-import type { ConvertedHollidays } from '@/helpers/data'
-import type { HollidayFormFields, HollidayFormType } from '@/types/FormFields'
+import type { UpdateHolidayVal } from './HolidayTable.vue'
+import type { ConvertedHolidays } from '@/helpers/data'
+import type { HolidayFormFields, HolidayFormType } from '@/types/FormFields'
 
 const props = defineProps<{
-  buttonText: string;
-  type: HollidayFormType;
-  closeModal: () => void;
+  buttonText: string
+  type: HolidayFormType
+  closeModal: () => void
 }>()
-const updateHollidayVal: UpdateHollidayVal = inject('updateHollidayVal')!
+const updateHolidayVal: UpdateHolidayVal = inject('updateHolidayVal')!
 const errors = ref<{ [key: string]: string[] } | null>(null)
 
-const formFields = inject<Ref<HollidayFormFields>>('formFields')!
+const formFields = inject<Ref<HolidayFormFields>>('formFields')!
 const updateForm = (type: string, input: HTMLInputElement) => {
-  formFields.value[type as keyof HollidayFormFields] = input.value
+  formFields.value[type as keyof HolidayFormFields] = input.value
 }
 
 const handleSubmit = (e: Event) => {
@@ -40,27 +40,27 @@ const handleSubmit = (e: Event) => {
   errors.value = getErrors(formFields.value, validationOptions)
   const isValid = !Object.keys(errors.value).length
 
-  const sortObj = (hollidays: ConvertedHollidays): ConvertedHollidays => {
-    const entries = Object.entries(hollidays)
+  const sortObj = (holidays: ConvertedHolidays): ConvertedHolidays => {
+    const entries = Object.entries(holidays)
     entries.sort((a, b) => {
       if (a[1]['month'] === b[1]['month']) return +a[1]['day'] - +b[1]['day']
       return +a[1]['month'] - +b[1]['month']
     })
-    let newHollidays: ConvertedHollidays = {}
+    let newHolidays: ConvertedHolidays = {}
     for (const [key, value] of entries) {
-      newHollidays[key] = value
+      newHolidays[key] = value
     }
-    return newHollidays
+    return newHolidays
   }
   if (isValid) {
-    let hollidays = JSON.parse(localStorage.getItem('hollidays')!)
+    let holidays = JSON.parse(localStorage.getItem('holidays')!)
     const { month, day, description } = formFields.value
-    hollidays[`${month}/${day}`] = { month, day, description }
-    hollidays = sortObj(hollidays)
-    localStorage.setItem('hollidays', JSON.stringify(hollidays))
+    holidays[`${month}/${day}`] = { month, day, description }
+    holidays = sortObj(holidays)
+    localStorage.setItem('holidays', JSON.stringify(holidays))
 
-    updateHollidayVal(hollidays)
-    if(props.type === 'edit') props.closeModal();
+    updateHolidayVal(holidays)
+    if (props.type === 'edit') props.closeModal()
   }
 }
 </script>
