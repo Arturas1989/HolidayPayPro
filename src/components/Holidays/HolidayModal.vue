@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import SubmitButton from '../Home/Forms/SubmitButton.vue'
 import HolidayForm from './HolidayForm.vue'
-import { inject } from 'vue'
-import type { HolidayFormFields, HolidayFormType } from '@/types/FormFields'
+import { inject, ref } from 'vue'
+import type { Errors, HolidayFormFields, HolidayFormType } from '@/types/FormFields'
 
 type Modal = {
   show: boolean
@@ -10,9 +10,15 @@ type Modal = {
   buttonText: string
   type: HolidayFormType
 }
+
 defineProps<{
   modelValue: Modal
 }>()
+
+
+const errors = ref< Errors | null>(null)
+const setErrors = (val: Errors) => {errors.value = val}
+
 const handleEdit = inject<{
   (val: HolidayFormFields, title: string, buttonText: string, type: HolidayFormType): void
 }>('handleEdit')!
@@ -20,12 +26,14 @@ const handleEdit = inject<{
 const emit = defineEmits<{
   (emit: 'update:modelValue', val: Modal): void
 }>()
+
 const openModal = () => {
   handleEdit({ month: '', day: '', description: '' }, 'Add the holiday', 'Submit', 'add')
 }
 
 const closeModal = () => {
   emit('update:modelValue', { show: false, title: '', buttonText: '', type: '' })
+  setErrors({month: [], day: [], description: []})
 }
 </script>
 
@@ -42,6 +50,8 @@ const closeModal = () => {
         </div>
         <div class="modal-body">
           <HolidayForm
+            :setErrors="setErrors"
+            :errors="errors"
             :buttonText="modelValue.buttonText"
             :closeModal="closeModal"
             :type="modelValue.type"
@@ -60,16 +70,18 @@ const closeModal = () => {
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   overflow: auto;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
 }
 
 .modal-content {
   position: relative;
   background-color: #fefefe;
-  margin: auto;
+  margin: 20px;
   padding: 0;
   border: 1px solid #888;
   width: fit-content;
