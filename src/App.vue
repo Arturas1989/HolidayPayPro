@@ -9,6 +9,7 @@ import ToggleIcon from './components/ToggleIcon.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/holidays">Holidays</RouterLink>
+        <RouterLink to="/params">Settings</RouterLink>
         <ToggleIcon />
       </nav>
     </div>
