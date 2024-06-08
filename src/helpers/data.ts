@@ -35,7 +35,7 @@ const convertData = (data: Holidays): ConvertedHolidays => {
 
 export const storageHolidays = convertData(holiday_data);
 
-export const getData = (): Holidays => {
+export const getData = (): ConvertedHolidays => {
   const holidays = localStorage.getItem('holidays')
   if (!holidays) localStorage.setItem('holidays', JSON.stringify({...storageHolidays}))
   return JSON.parse(localStorage.getItem('holidays')!) as ConvertedHolidays
