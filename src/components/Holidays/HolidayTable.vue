@@ -8,13 +8,16 @@ import { provide, ref } from 'vue'
 import type { HolidayFormFields, HolidayFormType } from '@/types/FormFields'
 import type { Modal } from '@/types/Modal'
 
-const holidays = useLocalStorage<ConvertedHolidays>('holidays', {...storageHolidays})
+const holidays = useLocalStorage<ConvertedHolidays>('holidays', { ...storageHolidays })
 
 const remove = (key: string) => {
-  let newValue = { ...holidays.value }
-  delete newValue[key]
-  localStorage.setItem('holidays', JSON.stringify(newValue))
-  holidays.value = newValue
+  const result = confirm('do you really want to delete?');
+  if (result) {
+    let newValue = { ...holidays.value }
+    delete newValue[key]
+    localStorage.setItem('holidays', JSON.stringify(newValue))
+    holidays.value = newValue
+  }
 }
 
 const modal = defineModel<Modal>({
