@@ -28,12 +28,12 @@ const handleKeydown = (e: KeyboardEvent) => {
     props.updateForm(props.for, inputRef.value!)
     displayRef.value = (inputRef.value! as HTMLInputElement).value
   }
-}
+} 
 </script>
 
 <template>
   <div class="input-group">
-    <ErrorMessage>{{ errors?.join('; ') }}</ErrorMessage>
+    <ErrorMessage :key="errors?.length" :hasErrors="errors?.length">{{ errors?.join('; ') }}</ErrorMessage>
     <div class="label-group">
       <label :for="props.for"><slot></slot></label>
       <input
