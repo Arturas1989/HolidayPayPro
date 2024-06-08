@@ -61,6 +61,12 @@
   color: black;
 }
 
+[color-scheme='dark'] .error {
+  background-color: white;
+  padding: 5px;
+  margin: 5px;
+}
+
 *,
 *::before,
 *::after {
