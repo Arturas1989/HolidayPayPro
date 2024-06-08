@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ConvertedHolidays } from '@/helpers/data'
+import { storageHolidays, type ConvertedHolidays } from '@/helpers/data'
 import RemoveButton from './RemoveButton.vue'
 import EditButton from './EditButton.vue'
 import HolidayModal from './HolidayModal.vue'
@@ -8,7 +8,7 @@ import { provide, ref } from 'vue'
 import type { HolidayFormFields, HolidayFormType } from '@/types/FormFields'
 import type { Modal } from '@/types/Modal'
 
-const holidays = useLocalStorage<ConvertedHolidays>('holidays', {})
+const holidays = useLocalStorage<ConvertedHolidays>('holidays', {...storageHolidays})
 
 const remove = (key: string) => {
   let newValue = { ...holidays.value }
