@@ -3,7 +3,7 @@ import FormField from '../FormField.vue'
 import SubmitButton from '../Home/Forms/SubmitButton.vue'
 import { getErrors } from '@/helpers/form'
 import type { ValidationOptions } from '@/services/Validator'
-import { inject, ref, type Ref } from 'vue'
+import { inject, type Ref } from 'vue'
 import type { UpdateHolidayVal } from './HolidayTable.vue'
 import type { ConvertedHolidays } from '@/helpers/data'
 import type { Errors, HolidayFormFields, HolidayFormType } from '@/types/FormFields'
@@ -16,7 +16,6 @@ const props = defineProps<{
   errors: Errors | null
 }>()
 const updateHolidayVal: UpdateHolidayVal = inject('updateHolidayVal')!
-// const errors = ref<{ [key: string]: string[] } | null>(null)
 
 const formFields = inject<Ref<HolidayFormFields>>('formFields')!
 const updateForm = (type: string, input: HTMLInputElement) => {
