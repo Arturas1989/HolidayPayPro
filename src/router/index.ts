@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import HolidayView from '@/views/HolidayView.vue'
+import ParamsView from '@/views/ParamsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +15,12 @@ const router = createRouter({
       path: '/holidays',
       name: 'holidays',
       component: HolidayView
-    }
+    },
+    {
+      path: '/params',
+      name: 'params',
+      component: ParamsView
+    },
   ]
 })
 

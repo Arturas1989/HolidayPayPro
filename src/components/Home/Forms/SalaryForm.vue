@@ -6,16 +6,11 @@ import { ref } from 'vue'
 import { calcInfo, getVal, isValid, updateFormFields, validateForm } from '@/helpers/form'
 import { bestMonths } from '@/helpers/calc'
 import type { FormFields, GeneralFields } from '@/types/FormFields'
+import { useDefaultData } from '@/composables/useDefaultData'
 
 const emit = defineEmits(['update:modelValue']);
 
-const defaultData = {
-  defaultYear: new Date().getFullYear(),
-  defaultSalary: 2000,
-  defaultDays: 10
-}
-
-const { defaultYear, defaultSalary, defaultDays } = defaultData
+const {defaultYear, defaultSalary, defaultDays} = useDefaultData();
 // month form
 let formFields: GeneralFields = {
   year: ref<DataRef>(defaultYear),
