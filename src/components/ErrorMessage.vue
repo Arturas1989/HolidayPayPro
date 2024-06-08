@@ -1,9 +1,12 @@
 <script setup lang="ts">
-  
+  const props = defineProps<{
+    hasErrors: number | undefined
+  }>()
+  const className = props.hasErrors ? 'error' : 'empty';
 </script>
 
 <template>
-  <span>
+  <span :class="className">
     <p>
       <slot></slot>
     </p>
@@ -11,13 +14,17 @@
 </template>
 
 <style scoped>
-  span{
+  .error{
     min-height: 20px;
-    width: fit-content;
+    width: 100%;
     color: red;
     font-size: 12px;
     display: flex;
     align-items: flex-end;
+    margin-bottom: 5px;
+  }
+  .empty{
+    min-height: 20px;
     margin-bottom: 5px;
   }
   p{
