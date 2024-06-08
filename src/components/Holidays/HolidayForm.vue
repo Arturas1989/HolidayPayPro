@@ -6,15 +6,17 @@ import type { ValidationOptions } from '@/services/Validator'
 import { inject, ref, type Ref } from 'vue'
 import type { UpdateHolidayVal } from './HolidayTable.vue'
 import type { ConvertedHolidays } from '@/helpers/data'
-import type { HolidayFormFields, HolidayFormType } from '@/types/FormFields'
+import type { Errors, HolidayFormFields, HolidayFormType } from '@/types/FormFields'
 
 const props = defineProps<{
   buttonText: string
   type: HolidayFormType
   closeModal: () => void
+  setErrors: (val: Errors) => void
+  errors: Errors | null
 }>()
 const updateHolidayVal: UpdateHolidayVal = inject('updateHolidayVal')!
-const errors = ref<{ [key: string]: string[] } | null>(null)
+// const errors = ref<{ [key: string]: string[] } | null>(null)
 
 const formFields = inject<Ref<HolidayFormFields>>('formFields')!
 const updateForm = (type: string, input: HTMLInputElement) => {
@@ -37,8 +39,9 @@ const handleSubmit = (e: Event) => {
       rules: [['no_rule', [0]]]
     }
   }
-  errors.value = getErrors(formFields.value, validationOptions)
-  const isValid = !Object.keys(errors.value).length
+  const errors = getErrors(formFields.value, validationOptions)
+  props.setErrors(errors);
+  const isValid = !Object.keys(errors).length
 
   const sortObj = (holidays: ConvertedHolidays): ConvertedHolidays => {
     const entries = Object.entries(holidays)
