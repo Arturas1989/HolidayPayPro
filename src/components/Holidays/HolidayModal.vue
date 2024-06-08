@@ -70,7 +70,7 @@ const closeModal = () => {
   left: 0;
   top: 0;
   width: 100%;
-  height: fit-content;
+  height: 100%;
   overflow: auto;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
@@ -80,6 +80,7 @@ const closeModal = () => {
 
 .modal-content {
   position: relative;
+  height: fit-content;
   background-color: #fefefe;
   margin: 20px;
   padding: 0;

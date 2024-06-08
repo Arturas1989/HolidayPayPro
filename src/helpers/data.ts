@@ -22,12 +22,6 @@ export type ConvertedHolidays = {
   [key: string]: ConvertedHoliday
 }
 
-export const getData = (): Holidays => {
-  const holidays = localStorage.getItem('holidays')
-  if (!holidays) localStorage.setItem('holidays', JSON.stringify(convertData(holiday_data)))
-  return JSON.parse(localStorage.getItem('holidays')!) as ConvertedHolidays
-}
-
 const convertData = (data: Holidays): ConvertedHolidays => {
   const newData: ConvertedHolidays = {}
   for (const month in data) {
@@ -38,3 +32,15 @@ const convertData = (data: Holidays): ConvertedHolidays => {
   }
   return newData
 }
+
+export const storageHolidays = convertData(holiday_data);
+
+export const getData = (): Holidays => {
+  const holidays = localStorage.getItem('holidays')
+  if (!holidays) localStorage.setItem('holidays', JSON.stringify({...storageHolidays}))
+  return JSON.parse(localStorage.getItem('holidays')!) as ConvertedHolidays
+}
+
+
+
+
