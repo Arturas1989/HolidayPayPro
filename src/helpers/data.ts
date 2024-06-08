@@ -41,6 +41,17 @@ export const getData = (): ConvertedHolidays => {
   return JSON.parse(localStorage.getItem('holidays')!) as ConvertedHolidays
 }
 
+export type DefaultData = {
+  year: string | number | 'now';
+  salary: string | number;
+  days: string | number;
+}
+export const defaultData = {
+  defaultYear: 'now',
+  defaultSalary: 2000,
+  defaultDays: 10
+}
+
 
 
 
