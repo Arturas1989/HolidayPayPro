@@ -1,4 +1,4 @@
-import { getData } from './data'
+import { getData, type ConvertedHolidays } from './data'
 
 export type Holidays = { [key: string]: { [key: string]: string } }
 
@@ -28,20 +28,17 @@ export function getWorkDays(year: string | undefined, monthNum: number, defaultH
 
     const holidaysCount = getHolidaysCount(+year, monthNum, defaultHolidays)
 
-    const weekendsCount = getWeekends(+year, monthNum, lastDay, lastDayNum)
+    const weekendsCount = getWeekends(+year, monthNum, lastDay, lastDayNum);
     return '' + (lastDayNum - weekendsCount - holidaysCount)
   } else {
     return ''
   }
 }
 
-function setEaster(year: number, defaultHolidays: Holidays) {
-  const { easterMonth, easterDay } = GetEasterDate(year)
-  if (easterMonth in defaultHolidays) {
-    defaultHolidays[easterMonth][easterDay] = 'Easter'
-  } else {
-    defaultHolidays[easterMonth] = { [easterDay]: 'Easter' }
-  }
+function setEaster(year: number, defaultHolidays: ConvertedHolidays) {
+  const { easterMonth, easterDay } = GetEasterDate(year);
+  const key = `${easterMonth}/${easterDay}`
+  defaultHolidays[key] = {month: '' + easterMonth, day: '' + easterDay, description: 'Easter'}
 }
 
 function GetEasterDate(year: number) {
@@ -76,9 +73,12 @@ function getWeekdayNum(day: Date) {
 
 function getHolidaysCount(year: number, monthNum: number, defaultHolidays: Holidays) {
   let holidaysCount = 0
-  for (const day in defaultHolidays[monthNum]) {
-    const holidayWeekday = getWeekdayNum(new Date(year, monthNum - 1, +day))
-    if (holidayWeekday !== 7 && holidayWeekday !== 6) holidaysCount++
+  for (const key in defaultHolidays) {
+    const [month, day] = key.split('/');
+    if(monthNum === +month){
+      const holidayWeekday = getWeekdayNum(new Date(year, monthNum - 1, +day))
+      if (holidayWeekday !== 7 && holidayWeekday !== 6) holidaysCount++
+    }
   }
 
   return holidaysCount
