@@ -57,6 +57,11 @@
   border-color: white;
 }
 
+.card{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 5px;
+  border: 1px solid black;
+}
+
 [color-scheme='dark'] .container.card td {
   color: black;
 }
