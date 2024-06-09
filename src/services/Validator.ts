@@ -39,7 +39,7 @@ export class Validator {
     this.fields = fields
     this.errors = {}
     this.typesCheck = {
-      current_year_or_number: (val: unknown) => {console.log(val);return !val.match(/[^0-9]/g) || (typeof val === 'string' && val.toLowerCase().trim() === 'now')},
+      current_year_or_number: (val: unknown) => (typeof val === 'string' && !val.match(/[^0-9]/g)) || (typeof val === 'string' && val.toLowerCase().trim() === 'now'),
       positive_integer: (val: unknown) => typeof val === 'number' || (typeof val === 'string' && !val.match(/[^0-9]/g) && val !== '0'),
       number: (val: unknown) => typeof val === 'number',
       numeric: (val: unknown) => typeof val === 'string' && !isNaN(parseInt(val)),
