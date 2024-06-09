@@ -11,8 +11,8 @@
 </script>
 
 <template>
-  <div class="container card">
-    <table>
+  <div class="container">
+    <table class="card">
       <thead>
         <tr>
           <th>Month</th>
