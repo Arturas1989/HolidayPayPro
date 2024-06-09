@@ -1,5 +1,6 @@
 import { defaultData } from "@/helpers/data";
 import { useLocalStorage } from "@vueuse/core";
+import type { DefaultData } from "@/helpers/data";
 
 export const useDefaultData = (showNow?: boolean) => {
   const storageData = useLocalStorage<DefaultData>('params', { ...defaultData })

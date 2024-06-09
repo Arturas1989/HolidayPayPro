@@ -42,9 +42,9 @@ export const getData = (): ConvertedHolidays => {
 }
 
 export type DefaultData = {
-  year: string | number | 'now';
-  salary: string | number;
-  days: string | number;
+  defaultYear: string | number | 'now';
+  defaultSalary: string | number;
+  defaultDays: string | number;
 }
 export const defaultData = {
   defaultYear: 'now',
